@@ -1,0 +1,66 @@
+name: PS5 stock check
+
+on:
+  schedule:
+    # Every 5 minutes (GitHub's minimum). Each run then checks for ~4 minutes,
+    # once a minute, so you effectively get a check roughly every minute.
+    # Note: GitHub sometimes delays scheduled runs by a few minutes when busy.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      test_email:
+        description: "Just send a test email"
+        type: boolean
+        default: false
+
+# Never let two runs overlap (they'd both send the same alert).
+concurrency:
+  group: ps5-stock-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      STATE_FILE: state/state.json
+      REMIND_HOURS: ${{ vars.REMIND_HOURS }}
+      HEALTH_ALERT_AFTER: ${{ vars.HEALTH_ALERT_AFTER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Send test email
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_email }}
+        run: python bot.py --test-email
+
+      # Remembers what's already been alerted so you don't get the same email every minute.
+      - name: Restore bot memory
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.test_email) }}
+        uses: actions/cache/restore@v4
+        with:
+          path: state
+          key: ps5-state-${{ github.run_id }}
+          restore-keys: ps5-state-
+
+      - name: Check stock
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.test_email) }}
+        run: python bot.py --loop-minutes 4 --interval 60
+
+      - name: Save bot memory
+        if: ${{ always() && !(github.event_name == 'workflow_dispatch' && inputs.test_email) }}
+        uses: actions/cache/save@v4
+        with:
+          path: state
+          key: ps5-state-${{ github.run_id }}
