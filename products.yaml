@@ -1,0 +1,117 @@
+# Products the bot watches.
+#
+# Every entry here is a listing SOLD BY THE RETAILER ITSELF. The bot also
+# double-checks the seller on Amazon and Walmart (which have marketplaces) and
+# will NOT email you if a third-party seller holds the listing.
+#
+# To add a product: copy an entry, change the name/url (or sku/asin), done.
+# To stop watching one: delete it or put "enabled: false" on it.
+#
+# Fields:
+#   retailer: bestbuy | amazon | walmart | costco | ebgames
+#   model:    free text used in the email (e.g. "PS5 Pro")
+#   name:     what shows up in the email
+#   url:      product page (what the email links to)
+#   sku:      Best Buy web code (Best Buy only)
+#   asin:     Amazon ASIN (Amazon only)
+
+products:
+  # ---------------- Best Buy Canada (only "Sold and shipped by Best Buy" SKUs) ----------------
+  - retailer: bestbuy
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console (1000050805)
+    sku: "19492009"
+    url: https://www.bestbuy.ca/en-ca/product/19492009
+  - retailer: bestbuy
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console (1000046547)
+    sku: "18477929"
+    url: https://www.bestbuy.ca/en-ca/product/18477929
+  - retailer: bestbuy
+    model: PS5 Slim (disc)
+    name: PlayStation 5 Slim 1TB Console
+    sku: "19446111"
+    url: https://www.bestbuy.ca/en-ca/product/19446111
+  - retailer: bestbuy
+    model: PS5 Slim (disc)
+    name: PlayStation 5 Slim Console
+    sku: "17477496"
+    url: https://www.bestbuy.ca/en-ca/product/17477496
+  - retailer: bestbuy
+    model: PS5 Slim Digital
+    name: PlayStation 5 Slim Digital Edition 825GB
+    sku: "19446112"
+    url: https://www.bestbuy.ca/en-ca/product/19446112
+  - retailer: bestbuy
+    model: PS5 Slim Digital
+    name: PlayStation 5 Slim Digital Edition Console
+    sku: "17477495"
+    url: https://www.bestbuy.ca/en-ca/product/17477495
+
+  # ---------------- Amazon.ca (must be sold by Amazon.ca) ----------------
+  - retailer: amazon
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console - 2TB (CFI-7119)
+    asin: B0FTMY4YZ2
+    url: https://www.amazon.ca/dp/B0FTMY4YZ2
+  - retailer: amazon
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console (CFI-7019)
+    asin: B0DGYL8TDZ
+    url: https://www.amazon.ca/dp/B0DGYL8TDZ
+  - retailer: amazon
+    model: PS5 Slim (disc)
+    name: PlayStation 5 Disc Edition Console (slim)
+    asin: B0CL7RQRY9
+    url: https://www.amazon.ca/dp/B0CL7RQRY9
+  - retailer: amazon
+    model: PS5 Slim Digital
+    name: PlayStation 5 Digital Edition Console (slim)
+    asin: B0CL7NKBBL
+    url: https://www.amazon.ca/dp/B0CL7NKBBL
+
+  # ---------------- Walmart.ca (must be sold by Walmart) ----------------
+  - retailer: walmart
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console
+    url: https://www.walmart.ca/en/ip/PlayStation-5-Pro-Console/6000208547598
+  - retailer: walmart
+    model: PS5 Slim (disc)
+    name: PlayStation 5 console (model group - slim)
+    url: https://www.walmart.ca/en/ip/PlayStation-5-console-model-group-slim/6000207352438
+  - retailer: walmart
+    model: PS5 Slim Digital
+    name: PlayStation 5 Digital Edition (model group - slim)
+    url: https://www.walmart.ca/en/ip/PlayStation-5-Digital-Edition-model-group-slim/6000207352799
+
+  # ---------------- Costco.ca (Costco sells everything itself; membership needed to buy) ----------------
+  - retailer: costco
+    model: PS5 Pro
+    name: PS5 Pro Console Bundle with Disc Drive
+    url: https://www.costco.ca/p/-/playstation-5-pro-console-bundle-with-disc-drive/4201007541
+  - retailer: costco
+    model: PS5 Pro
+    name: PS5 Pro Bundle with Grey Camo DualSense
+    url: https://www.costco.ca/p/-/playstation-5-pro-bundle-with-grey-camo-dualsense-wireless-controller/4201007359
+  - retailer: costco
+    model: PS5 Slim (disc)
+    name: PS5 Standard Disc Console Bundle + Midnight Black DualSense
+    url: https://www.costco.ca/p/-/playstation-5-standard-disc-console-bundle-with-midnight-black-dualsense-wireless-controller/4201007419
+  - retailer: costco
+    model: PS5 Slim Digital
+    name: PS5 Digital Edition Console Bundle + Midnight Black DualSense
+    url: https://www.costco.ca/p/-/playstation-5-digital-edition-console-bundle-with-midnight-black-dualsense-wireless-controller/4201007432
+
+  # ---------------- EB Games / GameStop Canada (first-party only) ----------------
+  - retailer: ebgames
+    model: PS5 Pro
+    name: PlayStation 5 Pro Console
+    url: https://www.ebgames.ca/PS5/Games/959634
+  - retailer: ebgames
+    model: PS5 Slim (disc)
+    name: PlayStation 5 console (model group - slim)
+    url: https://www.ebgames.ca/shop/playstation-5-console-model-group-slim-120913
+  - retailer: ebgames
+    model: PS5 Slim Digital
+    name: PlayStation 5 Digital Edition (Slim)
+    url: https://www.ebgames.ca/shop/playstation-5-digital-edition-slim-120914
